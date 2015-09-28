@@ -9,7 +9,7 @@
     <title>Slider for Bootstrap Examples Page</title>
 
     <!-- core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dependencies/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-slider.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -104,6 +104,19 @@
 		#ex6SliderVal {
 			color: green;
 		}
+
+		#slider12a .slider-track-high, #slider12c .slider-track-high {
+			background: green;
+		}
+
+		#slider12b .slider-track-low, #slider12c .slider-track-low {
+			background: red;
+		}
+
+		#slider12c .slider-selection {
+			background: yellow;
+		}
+
     </style>
 
     <style type='text/css'>
@@ -139,7 +152,7 @@
 			width: 300px;
 		}
     </style>
-	<script type='text/javascript' src="bower_components/modernizr/modernizr.js"></script>
+	<script type='text/javascript' src="dependencies/js/modernizr.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
@@ -153,19 +166,19 @@
 
       <div class="jumbotron">
         <h1>Slider for Bootstrap <small>bootstrap-slider.js</small></h1>
-        <p class="lead">Examples for the bootstrap-slider component.<p>
+        <p class="lead">Examples for the <a target="_blank" href="https://github.com/seiyria/bootstrap-slider">bootstrap-slider</a> component.<p>
       </div>
 
       <div class="examples">
       	<div class='slider-example'>
       		<h3>Example 1:</h3>
-      		<p>Basic example with custom formater and colored selected region via CSS.</p>
+      		<p>Basic example with custom formatter and colored selected region via CSS.</p>
       		<div class="well">
 				<input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
 			</div>
 			<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/&gt
@@ -173,19 +186,26 @@
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $('#ex1').slider({
-	formater: function(value) {
+	formatter: function(value) {
+		return 'Current value: ' + value;
+	}
+});
+
+// Without JQuery
+var slider = new Slider('#ex1', {
+	formatter: function(value) {
 		return 'Current value: ' + value;
 	}
 });
 
 
-
 ###################
-       CSS	
+       CSS
 ###################
 
 #ex1Slider .slider-selection {
@@ -203,17 +223,21 @@ $('#ex1').slider({
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 Filter by price interval: &ltb&gt€ 10&lt/b&gt &ltinput id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/&gt &ltb&gt€ 1000&lt/b&gt
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex2").slider({});
+
+// Without JQuery
+var slider = new Slider('#ex2', {});
 
             </code></pre>
       	</div>
@@ -235,7 +259,7 @@ $("#ex2").slider({});
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltp&gt
@@ -251,7 +275,7 @@ $("#ex2").slider({});
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
 var RGBChange = function() {
@@ -270,7 +294,7 @@ var b = $('#B').slider()
 
 
 ###################
-       CSS	
+       CSS
 ###################
 
 #RGB {
@@ -310,17 +334,23 @@ var b = $('#B').slider()
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex4" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/&gt
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex4").slider({
+	reversed : true
+});
+
+// Without JQuery
+var slider = new Slider("#ex4", {
 	reversed : true
 });
 
@@ -336,7 +366,7 @@ $("#ex4").slider({
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex5" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="0"/&gt
@@ -344,13 +374,24 @@ $("#ex4").slider({
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex5").slider();
+
+// Without JQuery
+var slider = new Slider('#ex5');
+
 $("#destroyEx5Slider").click(function() {
+
+	// With JQuery
 	$("#ex5").slider('destroy');
+
+	// Without JQuery
+	slider.destroy();
 });
+
 
             </code></pre>
       	</div>
@@ -364,7 +405,7 @@ $("#destroyEx5Slider").click(function() {
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/&t
@@ -372,13 +413,20 @@ $("#destroyEx5Slider").click(function() {
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex6").slider();
-$("#ex6").on('slide', function(slideEvt) {
+$("#ex6").on("slide", function(slideEvt) {
 	$("#ex6SliderVal").text(slideEvt.value);
 });
+
+// Without JQuery
+var slider = new Slider("#ex6");
+slider.on("slide", function(slideEvt) {
+	$("#ex6SliderVal").text(slideEvt.value);
+});)
 
             </code></pre>
       	</div>
@@ -392,7 +440,7 @@ $("#ex6").on('slide', function(slideEvt) {
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex7" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5" data-slider-enabled="false"/&gt
@@ -400,16 +448,29 @@ $("#ex6").on('slide', function(slideEvt) {
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex7").slider();
+
+// Without JQuery
+var slider = new Slider("#ex7");
+
 $("#ex7-enabled").click(function() {
 	if(this.checked) {
+		// With JQuery
 		$("#ex7").slider("enable");
+
+		// Without JQuery
+		slider.enable();
 	}
 	else {
+		// With JQuery
 		$("#ex7").slider("disable");
+
+		// Without JQuery
+		slider.disable();
 	}
 });
 
@@ -424,17 +485,23 @@ $("#ex7-enabled").click(function() {
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex8" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/&gt
 
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex8").slider({
+	tooltip: 'always'
+});
+
+// Without JQuery
+var slider = new Slider("#ex8", {
 	tooltip: 'always'
 });
 
@@ -449,16 +516,23 @@ $("#ex8").slider({
       		</div>
       		<pre><code>
 ###################
-       HTML	
+       HTML
 ###################
 
 &ltinput id="ex9" type="text"/&gt
 
 ###################
-    JavaScript	
+    JavaScript
 ###################
 
+// With JQuery
 $("#ex9").slider({
+	precision: 2,
+	value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
+});
+
+// Without JQuery
+var slider = new Slider("#ex9", {
 	precision: 2,
 	value: 8.115 // Slider will instantiate showing 8.12 due to specified precision
 });
@@ -466,20 +540,337 @@ $("#ex9").slider({
 
             </code></pre>
       	</div>
-      
-      </div> <!-- /examples -->
+<div class='slider-example'>
+    <h3>Example 10:</h3>
+    <p>Setting custom handlers.</p>
+    <div class="well">
+    <input id="ex10" type="text" data-slider-handle="custom"/>
+    </div>
+    <pre><code>
+###################
+ HTML
+###################
+
+&ltinput id="ex10" type="text" data-slider-handle="custom"/&gt
+
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex10").slider({});
+
+// Without JQuery
+var slider = new Slider("#ex10", {});
+
+###################
+ CSS
+###################
+.slider-handle.custom {
+background: transparent none;
+/* You can customize the handle and set a background image */
+}
+
+/* Or display content like unicode characters or fontawesome icons */
+.slider-handle.custom::before {
+line-height: 20px;
+font-size: 20px;
+content: '\2605'; /*unicode star character*/
+color: #726204;
+}
+      </code></pre>
+  </div>
+
+  <div class='slider-example'>
+      <h3>Example 11:</h3>
+      <p>Using a custom step interval.</p>
+      <div class="well">
+      <input id="ex11" type="text" data-slider-handle="custom"/>
+      </div>
+      <pre><code>
+###################
+HTML
+###################
+
+&ltinput id="ex11" type="text" data-slider-handle="custom"/&gt
+
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex11").slider({step: 20000, min: 0, max: 200000});
+
+// Without JQuery
+var slider = new Slider("#ex11", {
+	step: 20000,
+	min: 0,
+	max: 200000
+});
+
+      </code></pre>
+  </div>
+
+  <div class='slider-example'>
+    <h3>Example 12:</h3>
+    <p>Coloring the low and high track segments.</p>
+	<div class="well">
+      Single-value slider, high track:<br/>
+      <input id="ex12a" type="text"/><br/>
+      Note that there is no low track on the single-value slider.  The
+      area lesser than the value of the handle is the selection.
+      <br/><br/>
+      Range slider, low track:<br/>
+      <input id="ex12b" type="text"/>
+      <br/><br/>
+      Range slider, low and high tracks, and selection:<br/>
+      <input id="ex12c" type="text"/>
+    </div>
+    <pre><code>
+###################
+HTML
+###################
+&lt;!-- Single-value slider, high track: --&gt;
+&ltinput id="ex12a" type="text"/&gt&ltbr/&gt
+Note that there is no low track on the single-value slider. The area to lesser than the value of the handle is the selection.
+
+&lt;!-- Range slider, low track: --&gt;
+&ltinput id="ex12b" type="text"/&gt&ltbr/&gt
+
+&lt;!-- Range slider, low and high tracks, and selection: --&gt;
+&ltinput id="ex12c" type="text"/&gt&ltbr/&gt
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex12a").slider({ id: "slider12a", min: 0, max: 10, value: 5 });
+$("#ex12b").slider({ id: "slider12b", min: 0, max: 10, range: true, value: [3, 7] });
+$("#ex12c").slider({ id: "slider12c", min: 0, max: 10, range: true, value: [3, 7] });
+
+// Without JQuery
+new Slider("#ex12a", { id: "slider12a", min: 0, max: 10, value: 5 });
+new Slider("#ex12b", { id: "slider12b", min: 0, max: 10, range: true, value: [3, 7] });
+new Slider("#ex12c", { id: "slider12c", min: 0, max: 10, range: true, value: [3, 7] });
+
+###################
+CSS
+###################
+
+#slider12a .slider-track-high, #slider12c .slider-track-high {
+	background: green;
+}
+
+#slider12b .slider-track-low, #slider12c .slider-track-low {
+	background: red;
+}
+
+#slider12c .slider-selection {
+	background: yellow;
+}
+
+
+		</code></pre>
+  </div>
+
+  <div class='slider-example'>
+      <h3>Example 13:</h3>
+      <p>Using tick marks and labels.</p>
+      <div class="well">
+      <input id="ex13" type="text"/>
+      </div>
+      <pre><code>
+###################
+HTML
+###################
+
+&lt;input id="ex13" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["$0", "$100", "$200", "$300", "$400"]'/&gt;
+
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex13").slider({
+    ticks: [0, 100, 200, 300, 400],
+    ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+    ticks_snap_bounds: 30
+});
+
+// Without JQuery
+var slider = new Slider("#ex13", {
+    ticks: [0, 100, 200, 300, 400],
+    ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+    ticks_snap_bounds: 30
+});
+
+      </code></pre>
+  </div>
+
+	<div class='slider-example'>
+      <h3>Example 14:</h3>
+      <p>Using tick marks at specific positions..</p>
+      <div class="well">
+      <input id="ex14" type="text"/>
+      </div>
+      <pre><code>
+###################
+HTML
+###################
+
+&ltinput id="ex14" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels="['$0', '$100', '$200', '$300', '$400']" ticks_positions="[0, 30, 60, 70, 90, 100]" /&gt
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex14").slider({
+    ticks: [0, 100, 200, 300, 400],
+    ticks_positions: [0, 30, 60, 70, 90, 100],
+    ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+    ticks_snap_bounds: 30
+});
+
+// Without JQuery
+var slider = new Slider("#ex14", {
+    ticks: [0, 100, 200, 300, 400],
+    ticks_positions: [0, 30, 60, 70, 90, 100],
+    ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+    ticks_snap_bounds: 30
+});
+
+	</code></pre>
+	</div>
+
+      	<div class='slider-example'>
+      		<h3>Example 15:</h3>
+      		<p>With a logarithmic scale.</p>
+      		<div class="well">
+				<input id="ex15" type="text" data-slider-min="1000" data-slider-max="10000000" data-slider-step="5" />
+      		</div>
+      		<pre><code>
+###################
+       HTML
+###################
+
+&lt;input id="ex15" type="text" data-slider-min="1000" data-slider-max="10000000" data-slider-step="5" /&gt;
+
+###################
+    JavaScript
+###################
+
+// With JQuery
+$("#ex15").slider({
+	min: 1000,
+	max: 10000000,
+	scale: 'logarithmic',
+	step: 10
+});
+
+// Without JQuery
+var slider = new Slider('#ex15', {
+	min: 1000,
+	max: 10000000,
+	scale: 'logarithmic',
+	step: 10
+});
+
+            </code></pre>
+      </div>
+
+      <div class="slider-example">
+        <h3>Example 16:</h3>
+        <p>Focus the slider handle after a value change.</p>
+        <div class="well">
+          Single-value slider:<br/>
+          <input id="ex16a" type="text"/><br/>
+          <br/><br/>
+          Range slider:<br/>
+          <input id="ex16b" type="text"/>
+        </div>
+        <pre>
+          <code>
+
+###################
+HTML
+###################
+&lt;!-- Single-value slider: --&gt;
+&ltinput id="ex16a" type="text"/&gt&ltbr/&gt
+
+&lt;!-- Range slider: --&gt;
+&ltinput id="ex16b" type="text"/&gt&ltbr/&gt
+Note that the slider handle that caused the value change is focused.
+
+###################
+JavaScript
+###################
+
+// With JQuery
+$("#ex16a").slider({ min: 0, max: 10, value: 0, focus: true });
+$("#ex16b").slider({ min: 0, max: 10, value: [0, 10], focus: true });
+
+// Without JQuery
+new Slider("#ex16a", { min: 0, max: 10, value: 0, focus: true });
+new Slider("#ex16b", { min: 0, max: 10, value: [0, 10], focus: true });
+
+          </code>
+        </pre>
+      </div>
+
+      <div class="slider-example">
+      		<h3>Example 17:</h3>
+      		<p>Unusual tooltip positions</p>
+
+      		<div class="well">
+      			Horizontal slider with tooltip on the bottom<br/><br/>
+      			<input id="ex17a" type="text"/><br/><br/><br/>
+
+      			Vertical slider with tooltip on the left<br/><br/>
+      			<input id="ex17b" type="text"/>
+      		</div>
+              <pre>
+      <code>
+      ###################
+      HTML
+      ###################
+
+      &ltinput id="ex17a" type="text"/&gt
+      &ltinput id="ex17b" type="text"/&gt
+
+      ###################
+      JavaScript
+      ###################
+
+      // With JQuery
+      $("#ex17a").slider({min  : 0, max  : 10, value: 0, tooltip_position:'bottom'});
+      $("#ex17b").slider({min  : 0, max  : 10, value: 0, orientation: 'vertical', tooltip_position:'left'});
+
+      // Without JQuery
+      new Slider("#ex17a", {min  : 0, max  : 10, value: 0, tooltip_position:'bottom'});
+      new Slider("#ex17b", {min  : 0, max  : 10, value: 0, orientation: 'vertical', tooltip_position:'left'});
+      </code>
+              </pre>
+      </div>
+
+
+	  </div> <!-- /examples -->
     </div> <!-- /container -->
 
 
     <!-- core JavaScript
     ================================================== -->
-    <script type='text/javascript' src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type='text/javascript' src="dependencies/js/jquery.min.js"></script>
     <script type='text/javascript' src="js/bootstrap-slider.js"></script>
     <script type='text/javascript'>
     	$(document).ready(function() {
     		/* Example 1 */
 	    	$('#ex1').slider({
-	          	formater: function(value) {
+	          	formatter: function(value) {
 	            	return 'Current value: ' + value;
 	          	}
 	        });
@@ -537,10 +928,96 @@ $("#ex9").slider({
 
 			/* Example 9 */
 			$("#ex9").slider({
-				step: 0.01,
+				precision: 2,
 				value: 8.115
 			});
-    	});
+
+	      	/* Example 10 */
+	      	$("#ex10").slider({});
+
+	      	/* Example 11 */
+	      	$("#ex11").slider({
+		        step: 20000,
+		        min: 0,
+		        max: 200000
+	      	});
+
+			/* Example 12 */
+			$("#ex12a").slider({
+				id: "slider12a",
+				min: 0,
+				max: 10,
+				value: 5
+            });
+			$("#ex12b").slider({
+				id: "slider12b",
+				min: 0,
+				max: 10,
+				range: true,
+				value: [ 3, 7 ]
+			});
+			$("#ex12c").slider({
+				id: "slider12c",
+				min: 0,
+				max: 10,
+				range: true,
+				value: [ 3, 7 ]
+			});
+
+			/* Example 13 */
+			$("#ex13").slider({
+				ticks: [0, 100, 200, 300, 400],
+				ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+				ticks_snap_bounds: 30,
+				value: 200
+			});
+
+			/* Example 14 */
+			$("#ex14").slider({
+				ticks: [0, 100, 200, 300, 400],
+				ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+				ticks_positions: [0, 30, 70, 90, 100],
+				ticks_snap_bounds: 20,
+				value: 200
+			});
+
+			/* Example 15 */
+			$("#ex15").slider({
+				min: 10,
+				max: 1000,
+				scale: 'logarithmic',
+				step: 10
+			});
+
+			/* Example 16 */
+			$("#ex16a").slider({
+				min  : 0,
+				max  : 10,
+				value: 0,
+				focus: true
+			});
+			$("#ex16b").slider({
+				min  : 0,
+				max  : 10,
+				value: [ 0, 10 ],
+				focus: true
+			});
+
+			/* Example 17 */
+			$("#ex17a").slider({
+				min  : 0,
+				max  : 10,
+				value: 0,
+				tooltip_position:'bottom'
+			});
+			$("#ex17b").slider({
+				min  : 0,
+				max  : 10,
+				value: 0,
+				orientation: 'vertical',
+				tooltip_position:'left'
+			});
+		});
     </script>
     <!-- Placed at the end of the document so the pages load faster -->
   </body>
