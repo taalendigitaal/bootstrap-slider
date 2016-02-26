@@ -8,11 +8,11 @@
     "extra": {
         "component": {
             "scripts": [
-                "js/bootstrap-slider.js"
+                "dist/bootstrap-slider.js"
             ],
             "files": [
-                "js/bootstrap-slider.js",
-                "css/bootstrap-slider.css"
+                "dist/bootstrap-slider.js",
+                "dist/css/bootstrap-slider.css"
             ]
         }
     }
